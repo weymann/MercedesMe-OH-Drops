@@ -1,20 +1,20 @@
 # MercedesMe Binding
 
-**
-ALPHA VERSION!
-Please connect the advanced channels form Vehicle to analyze problems!
+This binding provides similar access to your Mercedes Benz vehicle like the Smartphone App _Mercedes Me_.
+
+
+## ''Alpha Version''
+
+Current Development Status is Alpha.
+Data Mappings are missing and testing of features and regions are necessary.
+
+In order to analyze problems check the binding logs.
+**In addition please connect the advanced channels from vehicle [vehicle](#vehicle) to analyze problems!**
 
 - feature-capabilities
 - command-capabilities
 - proto-update
 
-**
-
-This binding provides similar access to your Mercedes Benz vehicle like the Smartphone App _Mercedes Me_.
-For this you need a Mercedes developer account to get data from your vehicles.
-Setup requires some, time so follow [the steps of bridge configuration](#bridge-configuration).
-
-If you face some problems during setup or runtime please have a look into the [Troubleshooting section](#troubleshooting)
 
 ## Supported Things
 
@@ -439,7 +439,7 @@ All channels `read-only`
 | cons-ev-reset    | Number:Energy        |  Since Reset Average Electric Energy Consumption per 100 Kilometre   |
 | cons-conv-reset  | Number:Volume        |  Since Reset Average Gas Consumption per 100 Kilometre               |
 
- ### Position
+### Position
 
 Group name: `position`
 
@@ -479,6 +479,5 @@ All channels `read-only`
 
 - Not available yet!
 
-## Troubleshooting
 
 
