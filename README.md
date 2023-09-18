@@ -55,11 +55,11 @@ Click on Continue with Step 2
 Leave GUID as identifier as it is
 Click on Submit button
 
-3. Consfirmation shall be shown that Authorization was successful.
+3. Confirmation shall be shown that Authorization was successful.
 
-In case of non successful Athorization check your log for errors. 
+In case of non successful Authorization check your log for errors. 
 
-Some Screenshots to follow Authorizatiom
+Some Screenshots to follow Authorization:
 
 ### After Bridge Setup
 
@@ -84,11 +84,11 @@ Some Screenshots to follow Authorizatiom
 
 ### Bridge Configuration Parameters
 
-| Name            | Type    | Description                           | Default     | Required | Advanced |
-|-----------------|---------|---------------------------------------|-------------|----------|----------|
-| email           | text    | Mercedes Benz registered EMail Address| N/A         | yes      | no       |
-| region          | text    | Your region                           | EU          | yes      | no       |
-| pin             | text    | Mercedes Benz Smartphone App PIN      | N/A         | no       | no       |
+| Name            | Type    | Description                             | Default     | Required | Advanced |
+|-----------------|---------|-----------------------------------------|-------------|----------|----------|
+| email           | text    | Mercedes Benz registered EMail Address  | N/A         | yes      | no       |
+| region          | text    | Your region                             | EU          | yes      | no       |
+| pin             | text    | Mercedes Benz Smartphone App PIN        | N/A         | no       | no       |
 
 Set `region` to your location
 
@@ -99,7 +99,7 @@ Set `region` to your location
 
 Set `pin` to your selected PIN of your Apple or Android installed MercedesMe App.
 Parameter is *not required*.
-Note `pin` is needed for some commands which are critical for Car and especially **personal saftey**.
+Note `pin` is needed for some commands which are critical for Car and especially **personal safety**.
 E.g. closing windows needs to ensure no obstacles are in the way!
 Commands protected by PIN
 
@@ -139,18 +139,23 @@ Channels are separated in groups:
 | [charge](#charge)                | Charging data and programs                        |
 | [trip](#trip)                    | Trip data                                         |
 | [position](#position)            | Positioning Data                                  |
-| [tires](#tires)                  | Tire Informatios                                  |
+| [tires](#tires)                  | Tire Informations                                  |
+
+## Actions
+
+See [Vehicle Actions](#vehicle-actions) which can be used in rules.
+
 
 ### Vehicle
 
 Group name: `vehicle`
 
-| Channel               | Type                 |  Description                 | Read | Write | Advanced |
-|-----------------------|----------------------|------------------------------|------|-------|----------|
+| Channel               | Type                |  Description                  | Read | Write | Advanced |
+|-----------------------|---------------------|-------------------------------|------|-------|----------|
 | lock-status           | Number              |  Lock Status                  | X    |       |          |
 | window-status         | Number              |  Window Status                | X    |       |          |
 | door-status           | Number              |  Door Status                  | X    |       |          |
-| ignition              | Number              |  Ignition                     | X    |       |          |
+| ignition              | Number              |  Ignition                     | X    | X     |          |
 | feature-capabilities  | String              |  Feature Capabilities         | X    |       |    X     |
 | command-capabilities  | String              |  Command Capabilities         | X    |       |    X     |
 | proto-update          | String              |  Last Vehicle Data Update     | X    |       |    X     |
@@ -182,7 +187,7 @@ Group name: `vehicle`
 Group name: `doors`
 
 State representing if Door or other roofs, hoods or flaps are open.
-States and Controls are depending on your vehicle capabilites.
+States and Controls are depending on your vehicle capabilities.
 
 | Channel             | Type                 |  Description                 | Read | Write |
 |---------------------|----------------------|------------------------------|------|-------|
@@ -232,7 +237,7 @@ States and Controls are depending on your vehicle capabilites.
 
 Group name: `lock`
 State representing if Door or other roofs, hoods or flaps are locked.
-States and Controls are depending on your vehicle capabilites and Type.
+States and Controls are depending on your vehicle capabilities and Type.
 
 | Channel             | Type                 |  Description                    | Read | Write |
 |---------------------|----------------------|---------------------------------|------|-------|
@@ -249,7 +254,7 @@ States and Controls are depending on your vehicle capabilites and Type.
 
 Group name: `windows`
 State representing current Window position.
-States and Controls are depending on your vehicle capabilites.
+States and Controls are depending on your vehicle capabilities.
 
 | Channel             | Type                 |  Description                 | Read | Write |
 |---------------------|----------------------|------------------------------|------|-------|
@@ -297,7 +302,7 @@ States and Controls are depending on your vehicle capabilites.
 
 Group name: `havc`
 Configuration of vehicle climatization.
-States and Controls are depending on your vehicle capabilites.
+States and Controls are depending on your vehicle capabilities.
 
 | Channel             | Type                 |  Description                    | Read | Write |
 |---------------------|----------------------|---------------------------------|------|-------|
@@ -314,7 +319,7 @@ States and Controls are depending on your vehicle capabilites.
 
 Automatically calculated based on your vehicle capabilities
 
-#### Temperautre Setting
+#### Temperature Setting
 
 Preconfigure selected zone with desired temperature
 
@@ -324,9 +329,9 @@ Preconfigure selected zone with desired temperature
 ### Service
 
 Group name: `service`
-All channles read-only.
+All channels read-only.
 Service and Warning Information for vehicle
-States and Controls are depending on your vehicle capabilites.
+States and Controls are depending on your vehicle capabilities.
 
 | Channel             | Type                 |  Description                    | bev | hybrid | combustion |
 |---------------------|----------------------|---------------------------------|-----|--------|------------|
@@ -347,7 +352,7 @@ States and Controls are depending on your vehicle capabilites.
 ### Range
 
 Group name: `range`
-All channles read-only.
+All channels read-only.
 
 | Channel          | Type                 |  Description                 | bev | hybrid | combustion |
 |------------------|----------------------|------------------------------|-----|--------|------------|
@@ -355,11 +360,10 @@ All channles read-only.
 | soc              | Number:Dimensionless |  Battery state of charge     | X   | X      |            |
 | charged          | Number:Energy        |  Charged Battery Energy      | X   | X      |            |
 | uncharged        | Number:Energy        |  Uncharged Battery Energy    | X   | X      |            |
-| soc              | Number:Dimensionless |  Battery state of charge     | X   | X      |            |
 | range-electric   | Number:Length        |  Electric range              | X   | X      |            |
 | radius-electric  | Number:Length        |  Electric radius for map     | X   | X      |            |
 | fuel-level       | Number:Dimensionless |  Fuel level in percent       |     | X      | X          |
-| fuel-remain      | Number:Volume        |  Reamaining Fuel             |     | X      | X          |
+| fuel-remain      | Number:Volume        |  Remaining Fuel              |     | X      | X          |
 | fuel-open        | Number:Volume        |  Open Fuel Capacity          |     | X      | X          |
 | range-fuel       | Number:Length        |  Fuel range                  |     | X      | X          |
 | radius-fuel      | Number:Length        |  Fuel radius for map         |     | X      | X          |
@@ -374,20 +378,20 @@ Channels with `radius` are just giving a _guess_ which radius can be reached in 
 Group name: `charge`
 Only relevant for battery electric and hybrid vehicles.
 Current charge values and charge program configuration.
-States and Controls are depending on your vehicle capabilites.
+States and Controls are depending on your vehicle capabilities.
 
-| Channel             | Type                 |  Description                    | Read | Write |
-|---------------------|----------------------|---------------------------------|------|-------|
-| charge-flap         | Number               |  Charge Flap Stazus             | X    |       |
-| oupler-ac-channel   | Number               |  Coupler AC Status              | X    |       |
-| oupler-dc-channel   | Number               |  Coupler DC Status              | X    |       |
-| coupler-lock        | Number               |  Coupler Lock Status            | X    |       |
-| active              | Switch               |  Charging Active                | X    |       |
-| power               | Number:Power         |  Current Charging Power         | X    |       |
-| end-time            | DateTime             |  Estimated Charging End         | X    |       |
-| program             | Number               |  Selected Charge Program        | X    | X     |
-| max-soc             | Number:Dimensioless  |  Charge Target SoC              | X    | X     |
-| auto-unlock         | Switch               |  Sunroof Control (Cabriolet)    | X    | X     |
+| Channel             | Type                 |  Description                           | Read | Write |
+|---------------------|----------------------|----------------------------------------|------|-------|
+| charge-flap         | Number               |  Charge Flap Status                    | X    |       |
+| coupler-ac          | Number               |  Coupler AC Status                     | X    |       |
+| coupler-dc          | Number               |  Coupler DC Status                     | X    |       |
+| coupler-lock        | Number               |  Coupler Lock Status                   | X    |       |
+| active              | Switch               |  Charging Active                       | X    |       |
+| power               | Number:Power         |  Current Charging Power                | X    |       |
+| end-time            | DateTime             |  Estimated Charging End                | X    |       |
+| program             | Number               |  Selected Charge Program               | X    | X     |
+| max-soc             | Number:Dimensionless |  Charge Target SoC                     | X    | X     |
+| auto-unlock         | Switch               |  Auto Unlock Coupler after charging    | X    | X     |
 
 #### Charge Flap Mapping
 
@@ -396,16 +400,19 @@ States and Controls are depending on your vehicle capabilites.
 
 #### Coupler AC Mapping
 
-- not available yet!
+- 0 : Plugged
+- 2 : Unplugged
 
 #### Coupler DC Mapping
 
-- not available yet!
+- 0 : Plugged
+- 2 : Unplugged
 
 #### Coupler Lock Mapping
 
 - 0 : Locked
 - 1 : Unlocked
+
 
 #### Program Mapping
 
@@ -413,7 +420,7 @@ Calculated automatically based on your vehicle capabilities
 
 #### Max SoC Setting
 
-SoC target for selected rogram can be configured if your vehicle capabilities are supporting it.
+SoC target for selected program can be configured if your vehicle capabilities are supporting it.
 Configuration Limit needs to respect 10% steps with a minimum of 50% and maximum of 100%.
 
 #### Auto Unlock Setting
@@ -430,14 +437,26 @@ All channels `read-only`
 |------------------|----------------------|----------------------------------------------------------------------|
 | distance         | Number Length        |  Last Trip Distance                                                  |
 | time             | String               |  Last Trip Duration in days, hours and minutes                       |
-| avg-speed        | Number               |  Last Trip Average Speed in km/h                                     |
-| cons-ev          | Number:Energy        |  Last Trip Average Electric Energy Consumption per 100 Kilometre     |
-| cons-conv        | Number:Volume        |  Last Trip Average Gas Consumption per 100 Kilometre                 |
+| avg-speed        | Number:Speed         |  Last Trip Average Speed in km/h                                     |
+| cons-ev          | Number               |  Last Trip Average Electric Energy Consumption                       |
+| cons-conv        | Number               |  Last Trip Average Fuel Consumption                                  |
 | distance-reset   | Number Length        |  Since Reset Trip Distance                                           |
 | time-reset       | String               |  Since Reset Duration in days, hours and minutes                     |
-| avg-speed-reset  | Number               |  Since Reset Average Speed in km/h                                   |
-| cons-ev-reset    | Number:Energy        |  Since Reset Average Electric Energy Consumption per 100 Kilometre   |
-| cons-conv-reset  | Number:Volume        |  Since Reset Average Gas Consumption per 100 Kilometre               |
+| avg-speed-reset  | Number:Speed         |  Since Reset Average Speed in km/h                                   |
+| cons-ev-reset    | Number               |  Since Reset Average Electric Energy Consumption                     |
+| cons-conv-reset  | Number:Volume        |  Since Reset Average Fuel Consumption                                |
+| cons-ev-unit     | String               |  Unit of Average Electric Consumption                                |
+| cons-conv-unit   | String               |  Unit of Average Fuel Consumption                                    |
+
+In your MercedesMe App Front Page 
+
+- Burger Menu top left 
+- last Entry `Settings`
+- First Entry `Units`
+
+you can configure different average consumption units like kWh per 100 kilometer or km per kWh.
+
+<img src="./doc/ElectricConsumptionUints.png" width="300" height="300"/>
 
 ### Position
 
@@ -447,7 +466,7 @@ Group name: `position`
 |---------------------|----------------------|-------------------------------------------------|------|-------|
 | heading             | Number:Angle         |  Heading of Vehicle                             | X    |       |
 | gps                 | Point                |  GPS Location Point of Vehicle                  | X    |       |
-| signal              | Number               |  Request Light or Horn Signal to find Vehicle   |     |  X     |
+| signal              | Number               |  Request Light or Horn Signal to find Vehicle   |      |  X    |
 
 #### Signal Settings
 
@@ -461,12 +480,12 @@ All channels `read-only`
 | Channel                  | Type                 |  Description                    |
 |--------------------------|----------------------|---------------------------------|
 | pressure-front-left      | Number:Pressure      |  Tire Pressure Front Left       |
-| pressure-front-right     | Number:Pressure      |  Tire Pressure Fornt Right      |
+| pressure-front-right     | Number:Pressure      |  Tire Pressure Front Right      |
 | pressure-rear-left       | Number:Pressure      |  Tire Pressure Rear Left        |
 | pressure-rear-right      | Number:Pressure      |  Tire Pressure Rear Right       |
-| sensor-available         | Number               |  Tire Sensor Availbale          | 
+| sensor-available         | Number               |  Tire Sensor Available          | 
 | marker-front-left        | Number               |  Tire Marker Front Left         |
-| marker-front-right       | Number               |  Tire Marker Fornt Right        | 
+| marker-front-right       | Number               |  Tire Marker Front Right        | 
 | marker-rear-left         | Number               |  Tire Marker Rear Left          | 
 | marker-rear-right        | Number               |  Tire Marker Rear Right         |
 | last-update              | DateTime             |  Timestamp of last Measurement  |
@@ -478,6 +497,81 @@ All channels `read-only`
 #### Tire Marker Mapping
 
 - Not available yet!
+
+### Commands
+
+Group name: `command`
+All channels `read-only`
+
+| Channel              | Type        |  Description                       |
+|----------------------|-------------|------------------------------------|
+| cmd-name             | String      |  Command Name which is handled     |
+| cmd-state            | String      |  Current Command State             |
+| cmd-last-update      | String      |  Timestamp of last update          |
+
+Show state of the send command sent by above channels which are able to write values.
+
+Command Names:
+
+-  [ignition | vehicle](#vehicle) : ENGINESTART, ENGINESTOP
+-  [sunroof-control | doors](#doors) : SUNROOFOPEN, SUNROOFLIFT, SUNROOFCLOSE  
+-  [lock-control | lock](#lock) : DOORSLOCK, DOORSUNLOCK
+-  [window-control | windows](#windows) : WINDOWOPEN, WINDOWVENTILATE, WINDOWCLOSE
+-  [activate | hvac](#hvac) : PRECONDSTART, PRECONDSTOP
+-  [other-channels | hvac](#hvac) : TEMPERATURECONFIGURE
+-  [program, mox-soc, auto-unlock | charge](#charge) : CHARGEPROGRAMCONFIGURE
+-  [signal | position](#position) : SIGPOSSTART
+
+
+Command State:
+
+- INITIATION
+- ENQUEUED
+- PROCESSING
+- FINISHED
+- FAILED
+
+## Vehicle Actions
+
+You've the possibility to perform the below action in your rules. 
+
+### Send POI
+
+````java
+    /**
+     * Send Point of Interest (POI) to your vehicle.
+     * This POI is shown in your vehicle messages and can be instantly used to start a navigation route to this point.
+     * A "catchy" title plus latitude / longitude are mandatory.
+     * Parameters args is optional. If you use it respect the following order
+     * 1) City
+     * 2) Street
+     * 3) Postal Code
+     * If you miss any of them provide an empty String
+     *
+     * @param title - the title will be shown in your vehicle message inbox
+     * @param latitude - latitude of POI location
+     * @param longitude - longitude of POI location
+     * @param args - optional but respect order city, street, postal code
+     */
+    public void sendPoi(String title, double latitude, double longitude, String... args) 
+````
+
+### Example
+
+If you have 2 items `Poi_Location` (PointType) and `Poi_Location_Name` (StringType).
+Set first the name and then change the location and the rule will trigger.
+
+````
+rule "Send POI"
+    when
+        Item Poi_Location changed
+    then
+        val mercedesmeActions = getActions("mercedesme","mercedesme:bev:abc:xyz")
+        val double lat = Poi_Location.state.getLatitude
+        val double lon = Poi_Location.state.getLongitude
+        mercedesmeActions.sendPoi(Poi_Location_Name.state.toString,lat,lon)
+end
+````
 
 
 
