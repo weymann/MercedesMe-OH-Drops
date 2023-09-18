@@ -87,8 +87,9 @@ Some Screenshots to follow Authorization:
 | Name            | Type    | Description                             | Default     | Required | Advanced |
 |-----------------|---------|-----------------------------------------|-------------|----------|----------|
 | email           | text    | Mercedes Benz registered EMail Address  | N/A         | yes      | no       |
-| region          | text    | Your region                             | EU          | yes      | no       |
 | pin             | text    | Mercedes Benz Smartphone App PIN        | N/A         | no       | no       |
+| region          | text    | Your region                             | EU          | yes      | no       |
+| refreshInterval | decimal | API Polling Interval                    | 15          | yes      | no       |
 
 Set `region` to your location
 
