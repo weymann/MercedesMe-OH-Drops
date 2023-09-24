@@ -89,7 +89,7 @@ Some Screenshots to follow Authorization:
 | email           | text    | Mercedes Benz registered EMail Address  | N/A         | yes      | no       |
 | pin             | text    | Mercedes Benz Smartphone App PIN        | N/A         | no       | no       |
 | region          | text    | Your region                             | EU          | yes      | no       |
-| refreshInterval | decimal | API Polling Interval                    | 15          | yes      | no       |
+| refreshInterval | integer | API Polling Interval                    | 15          | yes      | no       |
 
 Set `region` to your location
 
@@ -140,7 +140,7 @@ Channels are separated in groups:
 | [charge](#charge)                | Charging data and programs                        |
 | [trip](#trip)                    | Trip data                                         |
 | [position](#position)            | Positioning Data                                  |
-| [tires](#tires)                  | Tire Informations                                  |
+| [tires](#tires)                  | Tire Informations                                 |
 
 ## Actions
 
@@ -153,23 +153,41 @@ Group name: `vehicle`
 
 | Channel               | Type                |  Description                  | Read | Write | Advanced |
 |-----------------------|---------------------|-------------------------------|------|-------|----------|
-| lock-status           | Number              |  Lock Status                  | X    |       |          |
-| window-status         | Number              |  Window Status                | X    |       |          |
+| lock                  | Number              |  Lock Status and Control      | X    | X     |          |
+| windows               | Number              |  Window Status and Control    | X    | X     |          |
 | door-status           | Number              |  Door Status                  | X    |       |          |
 | ignition              | Number              |  Ignition                     | X    | X     |          |
 | feature-capabilities  | String              |  Feature Capabilities         | X    |       |    X     |
 | command-capabilities  | String              |  Command Capabilities         | X    |       |    X     |
 | proto-update          | String              |  Last Vehicle Data Update     | X    |       |    X     |
 
+Advanced channels are only for debugging. 
+If you encounter problems with this binding follow the instructions from [Troubleshooting](#troubleshooting) section.
+
 #### Lock Status Mapping
+
+State 
 
 - 0 : Locked
 - 1 : Unlocked
 
-#### Window Status Mapping
+Command 
+
+- 0 : Lock
+- 1 : Unlock
+
+#### Window Mappings
+
+State
 
 - 0 : Intermediate
 - 1 : Closed
+- 2 : Open
+
+Command
+
+- 0 : Ventilate 
+- 1 : Close
 - 2 : Open
 
 #### Door Status Mapping
@@ -179,8 +197,15 @@ Group name: `vehicle`
 
 #### Ignition Mapping
 
+State 
+
 - 0 : Off
 - 2 : Ready
+- 4 : On
+
+Command
+
+- 0 : Off
 - 4 : On
 
 ### Doors
@@ -198,21 +223,11 @@ States and Controls are depending on your vehicle capabilities.
 | rear-right          | Contact              |  Rear Right Door             | X    |       |
 | deck-lid            | Contact              |  Deck lid                    | X    |       |
 | engine-hood         | Contact              |  Engine Hood                 | X    |       |
-| sunroof             | Number               |  Sun roof (only Cabriolet)   | X    |       |
 | rooftop             | Number               |  Roof top                    | X    |       |
 | sunroof-front-blind | Number               |  Sunroof Front Blind         | X    |       |
 | sunroof-rear-blind  | Number               |  Sunroof Rear Blind          | X    |       |
-| sunroof-control     | Number               |  Sunroof Control             |      | X     |
+| sunroof             | Number               |  Sun roof                    | X    | X     |
 
-#### Sunroof Mapping
-
-- 0 : Closed
-- 1 : Open
-- 2 : Open Lifting
-- 3 : Running
-- 4 : Closing
-- 5 : Opening
-- 6 : Closing
 
 #### Rooftop Mapping
             
@@ -228,7 +243,19 @@ States and Controls are depending on your vehicle capabilities.
 
 - not available yet!
 
-#### Sunroof Control Mapping
+#### Sunroof Mapping
+
+State
+
+- 0 : Closed
+- 1 : Open
+- 2 : Lifted
+- 3 : Running
+- 4 : Closing
+- 5 : Opening
+- 6 : Closing
+
+Command
 
 - 0 : Close
 - 1 : Open
@@ -237,7 +264,7 @@ States and Controls are depending on your vehicle capabilities.
 ### Lock
 
 Group name: `lock`
-State representing if Door or other roofs, hoods or flaps are locked.
+State representing if doors, hoods or flaps are locked.
 States and Controls are depending on your vehicle capabilities and Type.
 
 | Channel             | Type                 |  Description                    | Read | Write |
@@ -248,14 +275,12 @@ States and Controls are depending on your vehicle capabilities and Type.
 | rear-right          | Switch              |  Rear Right Door Lock            | X    |       |
 | deck-lid            | Switch              |  Deck lid                        | X    |       |
 | gas-flap            | Switch              |  Gas Flap (combustion & hybrid)  | X    |       |
-| lock-control        | Switch              |  Lock / Unlock Verhicle          |      | X     |
 
 
 ### Windows
 
 Group name: `windows`
 State representing current Window position.
-States and Controls are depending on your vehicle capabilities.
 
 | Channel             | Type                 |  Description                 | Read | Write |
 |---------------------|----------------------|------------------------------|------|-------|
@@ -266,7 +291,6 @@ States and Controls are depending on your vehicle capabilities.
 | rear-right-blind    | Number               |  Rear Right Blind            | X    |       |
 | rear-left-blind     | Number               |  Rear Left Blind             | X    |       |
 | rear-blind          | Number               |  Rear  Blind                 | X    |       |
-| window-control      | Number               |  Window Control              |      | X     |
 
 #### Window Channel Mapping
 
@@ -293,11 +317,6 @@ States and Controls are depending on your vehicle capabilities.
 
 - not available yet!
 
-#### Window Control Channel Mapping
-- 0 : Close
-- 1 : Open
-- 2 : Ventilate
-
 
 ### HVAC
 
@@ -314,7 +333,7 @@ States and Controls are depending on your vehicle capabilities.
 | zone                | Number              |  Selected Climatization Zone     | X    | X     |
 | temperature         | Number:Temperature  |  Desired Temperature             | X    | X     |
 | activate            | Switch              |  Gas Flap (combustion & hybrid)  | X    | X     |
-| aux-heat            | Switch              |  Sunroof Control (Cabriolet)     | X    | X     |
+| aux-heat            | Switch              |  Auxiliary Heating               | X    | X     |
 
 #### Zone Mapping
 
@@ -323,10 +342,40 @@ Automatically calculated based on your vehicle capabilities
 #### Temperature Setting
 
 Preconfigure selected zone with desired temperature
+Minimum and Maximum Temperature depends on your local settings either Degrre Clesius or Fahrenheit.
+
+Celsius 
 
 - Minimum : 16
 - Maximum : 28
 
+Fahrenheit
+
+- Minimum : 60
+- Maximum : 84
+
+If you need details regarding your specific vehicle connect advanced channel `command-capabilities`.
+It delivers a JSON String with your vehcile command capabilities.
+
+````
+"commandName": "TEMPERATURE_CONFIGURE",
+"isAvailable": true,
+"parameters": [
+    {
+        "allowedEnums": [
+            "FRONT_CENTER"
+        ],
+        "parameterName": "TEMPERATURE_POINTS_ZONE"
+    },
+    {
+        "allowedEnums": null,
+        "maxValue": 28,
+        "minValue": 16,
+        "parameterName": "TEMPERATURE_POINTS_TEMPERATURE",
+        "steps": 0.5
+    }
+]
+````
 ### Service
 
 Group name: `service`
@@ -511,15 +560,19 @@ All channels `read-only`
 | cmd-last-update      | String      |  Timestamp of last update          |
 
 Show state of the send command sent by above channels which are able to write values.
+**Don't flood the API with commands**.
+The Mercedes API cannot withstand _Monkey Testing_.
+Send lock/unlock or temperatures in a short period of time will result in failures.
+
 
 Command Names:
 
 -  [ignition | vehicle](#vehicle) : ENGINESTART, ENGINESTOP
--  [sunroof-control | doors](#doors) : SUNROOFOPEN, SUNROOFLIFT, SUNROOFCLOSE  
--  [lock-control | lock](#lock) : DOORSLOCK, DOORSUNLOCK
--  [window-control | windows](#windows) : WINDOWOPEN, WINDOWVENTILATE, WINDOWCLOSE
+-  [lock | vehicle](#vehicle) : DOORSLOCK, DOORSUNLOCK
+-  [windows | vehicle](#vehicle) : WINDOWOPEN, WINDOWVENTILATE, WINDOWCLOSE
+-  [sunroof | doors](#doors) : SUNROOFOPEN, SUNROOFLIFT, SUNROOFCLOSE  
 -  [activate | hvac](#hvac) : PRECONDSTART, PRECONDSTOP
--  [other-channels | hvac](#hvac) : TEMPERATURECONFIGURE
+-  [seats,zone,temperature | hvac](#hvac) : TEMPERATURECONFIGURE
 -  [program, mox-soc, auto-unlock | charge](#charge) : CHARGEPROGRAMCONFIGURE
 -  [signal | position](#position) : SIGPOSSTART
 
@@ -573,6 +626,24 @@ rule "Send POI"
         mercedesmeActions.sendPoi(Poi_Location_Name.state.toString,lat,lon)
 end
 ````
+
+## Troubleshooting
+
+There's a big variety of vehicles with different features and different command capabilities.
+In order to be able to analyze problems 3 advanced channels are placed in the vehicle group.
+
+* feature-capabilities - showing which feature your vehicle is eqipped with
+* command-capabilities - showing which commands can be sent to your vehicle
+* proto-update - latest update of your vehicle data
+
+In case you find problems regarding this binding add items to these 3 channels.
+The items are reporting Strings in json format.
+Please check yourself no critical data is inside.
+Vehicle Identification Number (VIN) isn't part of data.
+GPS data which is showing your location is anonymized.
+The content of these items shall be used to create a problem report.
+
+Keep these 3 channels disconnected during normal operation.
 
 
 
