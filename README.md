@@ -14,15 +14,6 @@ First time users shall follow the following sequence
 6. Optional: you can [Discover your Vehicle](#discover-your-vehicle) more deeply
 7. In case of problems check [Troubleshooting](#troubleshooting) section
 
-## ''Alpha Version''
-
-Current development status is _alpha_.
-Data mappings are missing and testing of features and regions are necessary.
-
-In order to analyze problems check the binding logs.
-**In addition please connect the advanced channels from [vehicle](#vehicle) to analyze problems!**
-Please check [Troubleshooting](#troubleshooting) section in order to help analyze problems.
-
 ## Supported Things
 
 | Type            | ID            | Description                                     |
@@ -50,6 +41,8 @@ Bridge needs configuration in order to connect properly to your Mercedes Me acco
 | pin             | text    | Mercedes Me Smartphone App PIN          | N/A         | no       | no       |
 | region          | text    | Your region                             | EU          | yes      | no       |
 | refreshInterval | integer | API refresh interval                    | 15          | yes      | no       |
+| callbackIP      | text    | Your region                             | N/A         | yes      | yes      |
+| callbackPort    | integer | API refresh interval                    | N/A         | yes      | yes      |
 
 Set `region` to your location
 
@@ -70,6 +63,8 @@ Commands protected by PIN
 - Open / Ventilate Windows
 - Open / Lift Sunroof
 
+IP `callbackIP` and port `callbackPort` will be auutodetected. 
+If you're running on server with more than one network interface please select manually.
 
 ### Bridge Authorization
 
@@ -424,6 +419,7 @@ All channels read-only.
 | Channel          | Type                 |  Description                 | bev | hybrid | combustion |
 |------------------|----------------------|------------------------------|-----|--------|------------|
 | mileage          | Number:Length        |  Total mileage               | X   | X      | X          |
+| home-distance    | Number:Length        |  Distance to Home            | X   | X      | X          |
 | soc              | Number:Dimensionless |  Battery state of charge     | X   | X      |            |
 | charged          | Number:Energy        |  Charged Battery Energy      | X   | X      |            |
 | uncharged        | Number:Energy        |  Uncharged Battery Energy    | X   | X      |            |
