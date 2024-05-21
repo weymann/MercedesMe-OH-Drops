@@ -1,8 +1,8 @@
 # MercedesMe Binding
 
-This binding provides access to your Mercedes Benz vehicle like _Mercedes me_ Smartphone App .
+This binding provides access to your Mercedes Benz vehicle like _Mercedes Me_ Smartphone App .
 
-## Table of Content
+## Installation Instructions
 
 First time users shall follow the following sequence
 
@@ -18,27 +18,27 @@ First time users shall follow the following sequence
 
 | Type            | ID            | Description                                     |
 |-----------------|---------------|-------------------------------------------------|
-| Bridge          | `account`     | Connect your Mercedes me account                |
+| Bridge          | `account`     | Connect your Mercedes Me account                |
 | Thing           | `combustion`  | Conventional fuel vehicle                       |
 | Thing           | `hybrid`      | Fuel vehicle with supporting electric engine    |
 | Thing           | `bev`         | Battery electric vehicle                        |
 
 ## Discovery
 
-The Mercedes me binding is based on the API of the Smartphone App.
+The Mercedes Me binding is based on the API of the Smartphone App.
 You have an account which is associated to one or more vehicles.
-Setup the Mercedes me Account Bridge with your email address.
+Setup the Mercedes Me Account Bridge with your email address.
 After successful authorization your associated vehicles are found automatically.
 There's no manual discovery!
 
 ## Bridge Configuration
 
-Bridge needs configuration in order to connect properly to your Mercedes me account.
+Bridge needs configuration in order to connect properly to your Mercedes Me account.
 
 | Name            | Type    | Description                             | Default     | Required | Advanced |
 |-----------------|---------|-----------------------------------------|-------------|----------|----------|
-| email           | text    | Mercedes me registered email Address    | N/A         | yes      | no       |
-| pin             | text    | Mercedes me Smartphone App PIN          | N/A         | no       | no       |
+| email           | text    | Mercedes Me registered email Address    | N/A         | yes      | no       |
+| pin             | text    | Mercedes Me Smartphone App PIN          | N/A         | no       | no       |
 | region          | text    | Your region                             | EU          | yes      | no       |
 | refreshInterval | integer | API refresh interval                    | 15          | yes      | no       |
 | callbackIP      | text    | Your region                             | N/A         | yes      | yes      |
@@ -51,7 +51,7 @@ Set `region` to your location
 - `AP` : Asia Pacific
 - `CN` : China 
 
-Set `pin` to your Mercedes me App PIN.
+Set `pin` to your Mercedes Me App PIN.
 Parameter is *not required*.
 Note `pin` is needed for some commands which are affecting **vehicle safety**.
 Commands like _unlock doors_ will result into an _unsafe state_: your vehicle is unlocked and is accessible to everybody. 
@@ -68,7 +68,7 @@ If you're running on server with more than one network interface please select m
 
 ### Bridge Authorization
 
-Authorization is needed to activate the Bridge which is connected to your Mercedes me Account.
+Authorization is needed to activate the Bridge which is connected to your Mercedes Me Account.
 The Bridge will indicate in the status headline if authorization is needed including the URL which needs to be opened in your browser.
 
 Three steps are needed
@@ -138,7 +138,6 @@ Channels are separated in groups:
 ## Actions
 
 See [Vehicle Actions](#vehicle-actions) which can be used in rules.
-
 
 ### Vehicle
 
@@ -228,7 +227,6 @@ States and controls are depending on your vehicle capabilities.
 | sunroof-rear-blind  | Number               |  Sunroof Rear Blind          | X    |       |
 | sunroof             | Number               |  Sun roof                    | X    | X     |
 
-
 #### Rooftop Mapping
             
 - 0 : Unlocked
@@ -279,7 +277,6 @@ States and controls are depending on your vehicle capabilities and type.
 | deck-lid            | Switch               |  Deck lid                        | X    |       |
 | gas-flap            | Switch               |  Gas Flap (combustion & hybrid)  | X    |       |
 
-
 ### Windows
 
 Group name: `windows`
@@ -294,7 +291,7 @@ State representing current window position.
 | rear-right          | Number               |  Rear Right Window           | X    |       |
 | rear-right-blind    | Number               |  Rear Right Blind            | X    |       |
 | rear-left-blind     | Number               |  Rear Left Blind             | X    |       |
-| rear-blind          | Number               |  Rear  Blind                 | X    |       |
+| rear-blind          | Number               |  Rear Blind                  | X    |       |
 
 #### Window Channel Mapping
 
@@ -320,7 +317,6 @@ State representing current window position.
 #### Flip Window Channel Mapping
 
 - not available yet
-
 
 ### HVAC
 
@@ -361,7 +357,7 @@ Triggers `- PRECONDCONFIGURESEATS` from [Command Name Mapping](#command-name-map
 
 #### Temperature Setting
 
-Preconfigure selected zone with desired temperature.
+Pre-configure selected zone with desired temperature.
 Minimum and maximum temperature depends on your local settings either Degree Celsius or Fahrenheit.
 
 Celsius 
@@ -405,7 +401,6 @@ States and controls are depending on your vehicle capabilities.
 | tires-rdk           | Number               |  Tire Pressure Warnings         | X   | X      | X          |
 | service-days        | Number               |  Next Service in *x* days       | X   | X      | X          |
 
-
 #### Starter Battery Mapping
 
 Traffic light status of the starter battery
@@ -438,7 +433,6 @@ All channels read-only.
 | radius-hybrid    | Number:Length        |  Hybrid Radius for Map       |     | X      |            |
 
 Channels with `radius` are just giving a _guess_ which radius can be reached in a map display.
-
 
 ### Charge
 
@@ -508,7 +502,6 @@ Command Options
 
 Triggers `CHARGEPROGRAMCONFIGURE` from [Command Name Mapping](#command-name-mapping)
 
-
 #### Auto Unlock Setting
 
 Charge Program can be configured to release coupler lock after target SoC is reached
@@ -539,13 +532,13 @@ All channels `read-only`
 #### Average Consumption
 
 You can configure different average consumption units like kWh per 100 kilometer or km per kWh.
-In your Mercedes me App front page 
+In your Mercedes Me App front page 
 
 - Burger Menu top left 
 - Last Entry `Settings`
 - First Entry `Units`
 
-<img src="./doc/ElectricConsumptionUints.png" width="300" height="300"/>
+<img src="./doc/ElectricConsumptionUnits.png" width="300" height="300"/>
 
 ### Trip Duration
 
@@ -659,45 +652,37 @@ Send lock/unlock or temperatures in a short period of time will result in failur
 
 ## Vehicle Actions
 
-You've the possibility to perform the below action in your rules. 
+Actions for `vehicle` [thing}(#vehicle) are provided. 
 
-### Send POI
+### `sendPOI`
 
-````java
-    /**
-     * Send Point of Interest (POI) to your vehicle.
-     * This POI is shown in your vehicle messages and can be instantly used to start a navigation route to this point.
-     * A "catchy" title plus latitude / longitude are mandatory.
-     * Parameters args is optional. If you use it respect the following order
-     * 1) City
-     * 2) Street
-     * 3) Postal Code
-     * If you miss any of them provide an empty String
-     *
-     * @param title - the title will be shown in your vehicle message inbox
-     * @param latitude - latitude of POI location
-     * @param longitude - longitude of POI location
-     * @param args - optional but respect order city, street, postal code
-     */
-    public void sendPoi(String title, double latitude, double longitude, String... args) 
-````
+Send a Point of Interest (POI) to the vehicle message box.
+This POI can be used as navigation destination.
 
-#### Example
+| Parameter   | Type          | Description             | Mandatory |
+|-------------|---------------|-------------------------|-----------|
+| title       | String        | POI title               |     X     |
+| latitude    | double        | latitude of POI         |     X     |
+| longitude   | double        | longitude of POI        |     X     |
+| city        | String        | POI city location       |           |
+| street      | String        | POI street name         |           |
+| postalCode  | String        | POI postal code         |           |
 
-If you have 2 items `Poi_Location` (PointType) and `Poi_Location_Name` (StringType).
-Set first the name and then change the location and the rule will trigger.
+**Example Eiffel Tower**
 
-````
-rule "Send POI"
-    when
-        Item Poi_Location changed
-    then
-        val mercedesmeActions = getActions("mercedesme","mercedesme:bev:abc:xyz")
-        val double lat = Poi_Location.state.getLatitude
-        val double lon = Poi_Location.state.getLongitude
-        mercedesmeActions.sendPoi(Poi_Location_Name.state.toString,lat,lon)
-end
-````
+Required information
+
+```
+        val mercedesmeActions = getActions("mercedesme","mercedesme:bev:4711:eqa")
+        mercedesmeActions.sendPOI("Eiffel Tower",48.85957476434348,2.2939068084684853)
+```
+
+Full information
+
+```
+        val mercedesmeActions = getActions("mercedesme","mercedesme:bev:4711:eqa")
+        mercedesmeActions.sendPOI("Eiffel Tower",48.85957476434348,2.2939068084684853,"Paris","Av. Gustave Eiffel", "75007")
+```
 
 ## Discover your Vehicle
 
@@ -719,30 +704,29 @@ In order to be able to analyze problems 3 advanced channels are placed in the ve
 * `proto-update` - latest update of your vehicle data
 
 In case you find problems regarding this binding add items to these 3 channels.
-The items are reporting Strings in json format.
+The items are reporting Strings in JSON format.
 Vehicle Identification Number (VIN) isn't part of data.
 GPS data which is showing your location is anonymized.
 Please double check yourself no critical data is inside.
 The content of these items shall be used to create a problem report.
 During development the `proto-update`  contains an entry with binding version information.
 
-````
+```
     "bindingInfo": {
         "oh-bundle": "4.1.0.202309241814",
         "version": "2.2-alpha",
         "vehicle": "mercedesme:bev"
     }
-````
+```
 
 Keep these 3 channels disconnected during normal operation.
-
 
 ## Full Example
 
 ### Things file
 
 ```java
-Bridge mercedesme:account:4711   "Mercedes me John Doe" [ email="YOUR_MAIL_ADDRESS", region="EU", pin=9876, refreshInterval=15] {
+Bridge mercedesme:account:4711   "Mercedes Me John Doe" [ email="YOUR_MAIL_ADDRESS", region="EU", pin=9876, refreshInterval=15] {
          Thing bev eqa           "Mercedes EQA"        [ vin="VEHICLE_VIN", batteryCapacity=66.5]
 }
 ```
@@ -821,3 +805,24 @@ Number                  EQA_CommandName             {channel="mercedesme:bev:471
 Number                  EQA_CommandState            {channel="mercedesme:bev:4711:eqa:command#cmd-state" }
 DateTime                EQA_CommandTimestamp        {channel="mercedesme:bev:4711:eqa:command#cmd-last-update" }
 ```
+
+### POI ruleExample
+
+```
+// send POI from JSON String item
+rule "Send POI"
+    when
+        Item POIJsonString changed 
+    then
+        // decode JSON
+        val json = POIJsonString.state.toString        
+        val title = transform("JSONPATH", "$.title", json)
+        val lat = transform("JSONPATH", "$.latitude", json)
+        val lon = transform("JSONPATH", "$.longitude", json)
+
+        // send POI to vehicle
+        val mercedesmeActions = getActions("mercedesme","mercedesme:bev:4711:eqa")
+        mercedesmeActions.sendPoi(title,lat,lon)
+end
+```
+
